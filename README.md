@@ -5,19 +5,19 @@
 The 3-tier architecture can be used to deploy a web-based application on Google Cloud platform. The entire architecture is deployed as two projects using Cloud [Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite). Refer the [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173) for details on the architecture and its components. 
 
 ## Documentation
-* [Quickstart](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#quickstart)
-* [Prerequisites](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#prerequisites)
-  * [Access Control](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#access-control)
-* [Deployment Phases](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#deployment-phases)
-  * [Clone the repository](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#clone-the-repository)
-  * [Update the variables in HCL files](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#update-the-variables-in-hcl-files)
-  * [Generate terraform files](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#generate-terraform-files)
-  * [Architecure deployment using terraform](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#architecture-deployment-using-terraform)
-* [Architecture diagram](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/Architecture/FedRAMP%20Aligned%20Three-Tier%20Architecture%20on%20GCP.PNG) 
-* [Use case description and user considerations](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/Architecture/Three-Tier%20Architecture%20Use%20Case%20Description.md) 
+* [Quickstart](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#quickstart)
+* [Prerequisites](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#prerequisites)
+  * [Access Control](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#access-control)
+* [Deployment Phases](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#deployment-phases)
+  * [Clone the repository](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#clone-the-repository)
+  * [Update the variables in HCL files](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#update-the-variables-in-hcl-files)
+  * [Generate terraform files](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#generate-terraform-files)
+  * [Architecure deployment using terraform](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#architecture-deployment-using-terraform)
+* [Architecture diagram](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/Architecture/FedRAMP%20Aligned%20Three-Tier%20Architecture%20on%20GCP.PNG) 
+* [Use case description and user considerations](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/Architecture/Three-Tier%20Architecture%20Use%20Case%20Description.md) 
 * [HCL files](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#hcl-files)
 * [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173) 
-* [Useful FedRAMP links](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#useful-fedramp-links)
+* [Useful FedRAMP links](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#useful-fedramp-linkss)
 
 ## Quickstart
 We recommend you read through the documentation in the [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173), but if you want to just get started, follow the below steps:
@@ -32,16 +32,34 @@ We recommend you read through the documentation in the [Solution Guide](https://
 
 ## Prerequisites
 
-[Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite) can be run locally on a computer or by using Google Cloud Shell.
+[Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite) can be run locally on a computer or by using Google Cloud Shell. 
 
 Prior to running DPT locally, the following tools must be installed:
 
 * [Go (1.14+)](https://golang.org/doc/go1.14) - An open source programming language to build software.
-* [Terraform (0.14.4+)](https://www.terraform.io/downloads.html) - A cloud provisioning tool
 * [Cloud SDK](https://cloud.google.com/sdk/install) - A set of tools for managing resources and applications hosted on Google Cloud.
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - A distributed version control system.
+* [Terraform (0.14.4+)](https://www.terraform.io/downloads.html) - A cloud provisioning tool
 * [Google Workspaces](https://workspace.google.com/) / [Cloud Identity](https://cloud.google.com/identity/docs/overview) - Privileges to modify users and groups in Google Workspaces / Cloud Identity.
 * [GCP Organization](https://cloud.google.com/resource-manager/docs/creating-managing-organization) - A Google Cloud organization with [Billing Account](https://cloud.google.com/billing/docs)
+* Domain purchased from a Domain registrar (example: Google Domains)
+
+If Google Cloud Shell is used to run DPT, Go (1.16), Git, and Cloud SDK are preinstalled. However, newer version of Terraform must be installed in Google Cloud Shell before deploying the template using the below steps:
+
+1. Go to [Terraform Downloads](https://www.terraform.io/downloads.html) and copy the link of 'Linux 64-bit' binary by right clicking on it
+2. Download the Linux 64-bit binary into Google Cloud Shell 
+```
+$ wget <link copied from Terraform Downloads>
+```
+3. Unzip the downloaded file
+```
+$ unzip <downloaded file name>
+```
+4. Move the unzipped terraform binary to /usr/local/bin
+```
+$ sudo cp terraform /usr/local/bin
+```
+
 
 ### Access Control
 Before a template is deployed, DPT requires creation of three groups in GCP. 
@@ -51,7 +69,7 @@ Before a template is deployed, DPT requires creation of three groups in GCP.
 
 The user groups running the template (org-admins group) should have the following Cloud IAM roles. 
 * roles/resourcemanager.organizationAdmin on the org for org deployment
-* roles/resourcemanager.folderAdmin on the folder for folder deployment
+* roles/resourcemanager.folderAdmin on the folder for folder deployment (This role is required if workloads are deployed under a folder instead of organization)
 * roles/resourcemanager.projectCreator on the org or folder
 * roles/billing.admin on the billing account
 * roles/owner on assured-workload projects for FedRAMP aligned workload deployment (This role is also assigned to the project-owners group)
@@ -60,7 +78,7 @@ The user groups running the template (org-admins group) should have the followin
 
 DPT deploys resources on [Google Assured Workload](https://cloud.google.com/assured-workloads) projects, however, DPT does not create these projects for Assured Workloads. Hence, before deploying DPT, the user must create two FedRAMP moderate assured workloads (one for three tier workload and one for logging project) using console or gcloud. Refer to this [link](https://cloud.google.com/assured-workloads/docs/how-to-create-workload).
 
-
+**Note: Create Assured workloads in regions where N2D machine type is supported. Refer to [this link](https://cloud.google.com/compute/docs/regions-zones) to see which regions support N2D machine type.
 
 
 ### Clone the repository
@@ -81,7 +99,7 @@ $ go install ./cmd/tfengine
 
 ```
 #clone modularised .hcl files from github to a folder in local machine or cloud shell
-$ git clone https://github.com/zealsomani/gcp-fedramp-quickstart.git
+$ git clone https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart.git
 ```
 
 4. Once the HCL files are cloned, configure the variable values in commonVariables.hcl and variable.hcl files based on requirements. Refer the ‘Update the variables in HCL files’ section below for details.
@@ -110,7 +128,7 @@ Note: Variable values used in both commonVariables and variable files are for re
 
 #### Key Considerations
 In order to edit and customize the deployment to align to your requirements, please consider the following.
-**Note: All the variables stated in the below sections reside in [commonVariables.hcl](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/commonVariables.hcl) and [variables.hcl](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/variables.hcl), and must be updated in these two files only.** 
+**Note: All the variables stated in the below sections reside in [commonVariables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/commonVariables.hcl) and [variables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/variables.hcl), and must be updated in these two files only.** 
 
 ##### devops.hcl variables
 The devops.hcl file will:
