@@ -16,11 +16,11 @@ schema = {
             type        = "string"
         }
         owners_group    = {
-            description = "Owners group for access control"
+            description = "Project owners group email ID for access control"
             type        = "string"
         }
         admin_group     = {
-            description = "Admin group for access control"
+            description = "Org admin group email ID for access control"
             type        = "string"
         }
         cloud_users_group  = {
@@ -29,7 +29,7 @@ schema = {
         }
 #*********** Definitions of DevOps project variables *************************************
         terraform_state_storage_bucket  = {
-            description = "Unique global bucket name, which stores terraform state"
+            description = "Globally unique bucket name, which stores terraform state"
             type        = "string"
         }
         
@@ -101,32 +101,43 @@ template "variables" {
   recipe_path = "./variables.hcl"
   data = {
 
-    # ******* Below variables values must be changed by user *****************
+    # ******* Below variables values must be changed by user. Refer variable properties description in the above section before proceeding. *****************
 
+    #parent_type example: "organization" or "folder"
     parent_type                             = ""
+    #parent_id  example: "123456789***"
     parent_id                               = "" 
+    #billing_account ID. Example: "01F35C-D94AB9-*****"
     billing_account                         = ""
+    #owners_group example: "project-owners@example.com" 
     owners_group                            = ""
+    #admin_group example:  "org-admins@example.com" 
     admin_group                             = ""
+    #cloud_users_group example: "project-cloud-users@.example.com"
     cloud_users_group                       = ""
+    #logging_project_id is the project ID of pre-created assured workload 'logging' project 
     logging_project_id                      = ""
+    #logging_project_region is the region selected for logging project. Example: "us-central1"  
     logging_project_region                  = ""
+    #ttw-project_id is the project ID of pre-created assured workload 'three tier workload' project 
     ttw_project_id                          = ""
+    #ttw_region is region selected for three tier workload project. Example: "us-central1" 
     ttw_region                              = ""
 
-    # ******* Below variable value must be changed by user and should be globally unique.
+    # ******* Below variable value must be changed by user and should be globally unique. *****************
 
+    #Globally unique bucket name, which stores terraform state. 
     terraform_state_storage_bucket          = ""
   
 
-    # ********** For below variables, default values can be retained. User can change these values based on requirement.
+    # ********** For below variables, default values can be retained. User can change these values based on requirement. *****************
     vpc_network_name                        = "ttw-fedramp-network"
     web_subnet_name                         = "ttw-fedramp-web-subnet"
     gke_subnet_name                         = "ttw-fedramp-gke-subnet"
     dataflow_network_name                   = "dataflow-worker-network"
     dataflow_subnet_name                    = "dataflow-worker-subnet"
     
-    # ******** Below variable values must be changed as per your network design. 
+    # ******** Below variable values must be changed as per your network design.  *****************
     web_subnet_ip_range                     = "10.0.1.0/24"
     gke_subnet_primary_ip_range             = "10.1.0.0/16"
     gke_subnet_secondary_pod_ip_range       = "10.2.0.0/16"
