@@ -223,7 +223,7 @@ schema = {
             description = "Load balancer URL map backend path to static files bucket"
             type        = "string"
         }
-#******************* Definitions of Three tier workload project loadbalancer backend static bucket Variables **
+#******************* Definitions of Three tier workload project loadbalancer backend static bucket Variables ***********
         loadbalancer_backend_bucket_name = {
             description = "Unique name of the static files storage bucket. This is backend to https load balancer. Example: ttw-backend-bucket"
             type        = "string"
@@ -333,7 +333,7 @@ schema = {
 template "devops" {
   recipe_path = "./devops.hcl"
   data = {
-    # ******* Do not change below variables. These values are supplied by commonVariables.hcl
+    # ******* Do not change below variables. These values are supplied by commonVariables.hcl ***********
     parent_type                             = "{{.parent_type}}"
     parent_id                               = "{{.parent_id}}" 
     billing_account                         = "{{.billing_account}}"
@@ -344,8 +344,10 @@ template "devops" {
 
     # ******* Below variables values must be changed by user *****************
     
-    # Unique project ID for the devops project. This project is created by this template.
+    # Unique project ID for the devops project. This project is created by this template and is not a pre-existing project. 
+    #devops_project_id example: "example-devops-proejct"
     devops_project_id                       = ""
+    #devops_storage_region example: "us-central1"
     devops_storage_region                   = ""
 
   }
@@ -354,7 +356,7 @@ template "devops" {
 template "network" {
   recipe_path = "./network.hcl"
   data = {
-    # ******* Do not change below variables. These values are supplied by commonVariables.hcl
+    # ******* Do not change below variables. These values are supplied by commonVariables.hcl ***********
     parent_type                             = "{{.parent_type}}"   
     parent_id                               = "{{.parent_id}}" 
     billing_account                         = "{{.billing_account}}"
@@ -381,7 +383,7 @@ template "network" {
 template "logging" {
   recipe_path = "./logging.hcl"
   data = { 
-    # ******* Do not change below variables. These values are supplied by commonVariables.hcl
+    # ******* Do not change below variables. These values are supplied by commonVariables.hcl ***********
     parent_type                                                 = "{{.parent_type}}"   
     parent_id                                                   = "{{.parent_id}}" 
     billing_account                                             = "{{.billing_account}}"
@@ -395,7 +397,7 @@ template "logging" {
     dataflow_subnet_name                                        = "{{.dataflow_subnet_name}}"
     dataflow_subnet_ip_range                                    = "{{.dataflow_subnet_ip_range}}"
     
-    # ********** For below variables, default values can be retained. User can change these values based on requirement
+    # ********** For below variables, default values can be retained. User can change these values based on requirement ***********
     logs_storage_bigquery_dataset_name                          = "logs_storage_dataset" 
     logs_storage_bigquery_table_name                            = "central-logs-table1"
     data_flow_job_name                                          = "logs-streaming1"
@@ -408,8 +410,9 @@ template "logging" {
     dataflow_temp_storage_bucket_datatype_label                 = "temp-data"
     dataflow_temp_storage_bucket_data_criticality_label         = "low"
 
-    # ******* Below variable value must be changed and should be globally unique**
+    # ******* Below variable value must be changed and should be globally unique ***********
 
+    #Globally unique bucket name, used as staging bucket for dataflow job. Example: "example-dataflow-bucket"
     dataflow_temp_storage_bucket_name                           = ""
     
     
@@ -419,7 +422,7 @@ template "logging" {
 template "frontend" {
   recipe_path = "./loadbalancer-mig.hcl"
   data = {
-    # ******* Do not change below variables. These values are supplied by commonVariables.hcl
+    # ******* Do not change below variables. These values are supplied by commonVariables.hcl ***********
     parent_type                                  = "{{.parent_type}}"  
     parent_id                                    = "{{.parent_id}}" 
     billing_account                              = "{{.billing_account}}"
@@ -432,7 +435,7 @@ template "frontend" {
     vpc_network_name                             = "{{.vpc_network_name}}"
     web_subnet_name                              = "{{.web_subnet_name}}"
     
-    # ********** For below variables, default values can be retained. User can change these values based on requirement
+    # ********** For below variables, default values can be retained. User can change these values based on requirement ***********
 
     ttw_instance_template_name                   = "ttw-template-1"
     mig_name                                     = "webserver-mig1"
@@ -440,11 +443,12 @@ template "frontend" {
     
     # ******* Below variable values must be changed by user *****************
 
-    # Format of the mig_distribution_policy_zones variable value should be "[\"us-central1-f\", \"us-central1-a\",\"us-central1-c\"]". Zone values depends on region in which assured workload is created.
+    # Format of the mig_distribution_policy_zones variable value should be: "[\"us-central1-f\", \"us-central1-a\",\"us-central1-c\"]". 
+    # Zone values depends on region in which assured workload 'three tier workload project' is created. The region should support N2D machine type. Refer README file pre-requisite to see supported regions for N2D machine type.
     mig_distribution_policy_zones                = ""
 
 
-    # ********** For below variables, default values can be retained. User can change these values based on requirement
+    # ********** For below variables, default values can be retained. User can change these values based on requirement ***********
     
     autoscaling_min_replicas                     = 2
     autoscaling_max_replicas                     = 3
@@ -453,10 +457,11 @@ template "frontend" {
     mig_instance_datatype_label                  = "client"
     mig_instance_data_criticality_label          = "high"
 
-    # ******* Below variable values must be changed and should be globally unique**
+    # ******* Below variable values must be changed and should be globally unique ***********
 
     # Format of the load_balancer_ssl_certificate_domain_name should be "example.us.", "example.dev."
     load_balancer_ssl_certificate_domain_name    = ""
+    # Globally unique bucket name. Example: "example-loadbalancer-bucket"
     loadbalancer_backend_bucket_name             = ""
     # Format of the load_balancer_url_map_host should be "example.us", "example.dev". User can change host map as required.
     load_balancer_url_map_host                   = ""
@@ -467,7 +472,7 @@ template "frontend" {
     load_balancer_url_map_compute_backend_path   = "/"
     load_balancer_url_map_bucket_backend_path    = "/static"
     
-    # ********** For below variables, default values can be retained. User can change these values based on requirement.
+    # ********** For below variables, default values can be retained. User can change these values based on requirement. *************
 
     backend_mig_protocol                         = "HTTP"
     backend_mig_timeout                          = 30
@@ -481,7 +486,7 @@ template "frontend" {
     ttw_compute_http_health_check_proxy_header   = "NONE"
     cloud_armor_security_policy_name             = "cloud-armor-security-policy"
 
-    # ******** Below variable value must be changed as per your network design.
+    # ******** Below variable value must be changed as per your network design. ***********
 
     cloud_armor_security_policy_allow_range      = "34.93.96.21/32"
   }
@@ -490,7 +495,7 @@ template "frontend" {
 template "backend" {
   recipe_path = "./gke-sql.hcl"
   data = {
-    # ******* Do not change below variables. These values are supplied by commonVariables.hcl
+    # ******* Do not change below variables. These values are supplied by commonVariables.hcl ***********
     parent_type                                  = "{{.parent_type}}"  
     parent_id                                    = "{{.parent_id}}" 
     billing_account                              = "{{.billing_account}}"
@@ -507,7 +512,7 @@ template "backend" {
     logging_project_id                           = "{{.logging_project_id}}"
     logging_project_region                       = "{{.logging_project_region}}"
     
-    # ********** For below variables, default values can be retained. User can change these values based on requirement
+    # ********** For below variables, default values can be retained. User can change these values based on requirement ***********
 
     mig_instance_datatype_label                  = "client"
     mig_instance_data_criticality_label          = "high"
@@ -522,11 +527,12 @@ template "backend" {
     private_cloud_sql_machine_type               = "db-n1-standard-1"
     ttw_project_log_sink_filter                  = "resource.type = gce_instance AND severity >= WARNING"
 
-    # ******* Below variable value must be changed and should be globally unique**
+    # ******* Below variable value must be changed and should be globally unique *******
 
+    # GLobally unique bucket name. Example: "example-sql-bucket"
     cloud_sql_backup_export_bucket_name          = ""
     
-    # ******** Below variable value must be changed as per your network design
+    # ******** Below variable value must be changed as per your network design *******
 
     gke_private_master_ip_range                  = "192.168.3.0/28"
     
