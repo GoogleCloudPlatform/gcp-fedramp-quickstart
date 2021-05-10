@@ -2,7 +2,7 @@
 
 <img width="835" alt="FedRAMP Aligned Three-Tier Architecture on GCP" src="https://user-images.githubusercontent.com/56096409/116757301-ad3ae600-a9c2-11eb-9608-1ee5c846b9d5.PNG">
 
-The 3-tier architecture can be used to deploy a web-based application on Google Cloud platform. The entire architecture is deployed as two projects using Cloud [Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite). Refer the [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173) for details on the architecture and its components. 
+The 3-tier architecture can be used to deploy a web-based application on Google Cloud platform. The entire architecture is deployed as two projects using Cloud [Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite).  
 
 ## Documentation
 * [Quickstart](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#quickstart)
@@ -20,7 +20,6 @@ The 3-tier architecture can be used to deploy a web-based application on Google 
 * [Useful FedRAMP links](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#useful-fedramp-linkss)
 
 ## Quickstart
-We recommend you read through the documentation in the [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173), but if you want to just get started, follow the below steps:
 
 1. Prerequisites
    - Access Control
