@@ -345,7 +345,7 @@ template "devops" {
     # ******* Below variables values must be changed by user *****************
     
     # Unique project ID for the devops project. This project is created by this template and is not a pre-existing project. 
-    #devops_project_id example: "example-devops-proejct"
+    #devops_project_id example: "example-devops-project"
     devops_project_id                       = ""
     #devops_storage_region example: "us-central1"
     devops_storage_region                   = ""
