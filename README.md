@@ -45,12 +45,12 @@ Before you run the toolkit locally, install the following tools:
 
 If Google Cloud Shell is used to run the toolkit, Go (1.16), Git, and Cloud SDK are preinstalled. However, newer version of Terraform must be installed in Google Cloud Shell before deploying the template using the below steps:
 
-1. Go to [Terraform Downloads](https://www.terraform.io/downloads.html) and copy the link of 'Linux 64-bit' binary by right clicking on it
-2. Download the Linux 64-bit binary into Google Cloud Shell 
+1. Go to [Terraform Downloads](https://www.terraform.io/downloads.html) and copy the link of 'Linux 64-bit' binary by right clicking on it.
+2. Download the Linux 64-bit binary into Google Cloud Shell.
 ```
 $ wget <link copied from Terraform Downloads>
 ```
-3. Unzip the downloaded file
+3. Unzip the downloaded file.
 ```
 $ unzip <downloaded file name>
 ```
@@ -67,11 +67,11 @@ Before deploying a template, create three groups:
 * Cloud-users: project-cloud-users@{DOMAIN} - Members of this group will get access to the resources deployed by the toolkit post deployment.
 
 The user groups running the template (org-admins group) should have the following IAM roles. 
-* roles/resourcemanager.organizationAdmin on the org for org deployment
-* roles/resourcemanager.folderAdmin on the folder for folder deployment (This role is required if workloads are deployed under a folder instead of organization)
-* roles/resourcemanager.projectCreator on the org or folder
-* roles/billing.admin on the billing account
-* roles/owner on assured-workload projects for FedRAMP aligned workload deployment (This role is also assigned to the project-owners group)
+* roles/resourcemanager.organizationAdmin on the org for org deployment.
+* roles/resourcemanager.folderAdmin on the folder for folder deployment (This role is required if workloads are deployed under a folder instead of organization).
+* roles/resourcemanager.projectCreator on the org or folder.
+* roles/billing.admin on the billing account.
+* roles/owner on assured-workload projects for FedRAMP aligned workload deployment (This role is also assigned to the project-owners group).
 
 ## Deployment Phases
 
@@ -82,19 +82,19 @@ Data Protection Toolkit deploys resources on [Google Assured Workload](https://c
 
 ### Clone the repository
 
-1. Clone the Data Protection Toolkit git repository to a folder (locally or on cloud shell)
+1. Clone the Data Protection Toolkit git repository to a folder (locally or on cloud shell).
 
 ```
 $ git clone https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite
 $ cd healthcare-data-protection-suite
 ```
-2. Install tfengine
+2. Install tfengine.
 
 ```
 $ go install ./cmd/tfengine
 ```
 
-3. Clone the FedRAMP aligned three-tier workload HCL files in a folder before running the tfengine
+3. Clone the FedRAMP aligned three-tier workload HCL files in a folder before running the tfengine.
 
 ```
 #clone modularised .hcl files from github to a folder in local machine or cloud shell
@@ -131,8 +131,8 @@ In order to edit and customize the deployment to align to your requirements, ple
 
 ##### devops.hcl variables
 The devops.hcl file will:
-* Deploy a devops project, and
-* Create a terraform state storage bucket
+* Deploy a devops project.
+* Create a terraform state storage bucket.
  
 Ensure that values for devops project ID "devops_project_id" (in variables.hcl) and bucket name "terraform_state_storage_bucket"  (in commonVariables.hcl) are globally unique.
 
@@ -145,10 +145,10 @@ The network.hcl will:
 
 ##### logging.hcl variables
 The logging.hcl file creates: 
-* Dataflow job with private worker(s)
-* BigQuery dataset and table
-* Pub/Sub Topic and Subscription
-* IAM bindings for access
+* Dataflow job with private worker(s).
+* BigQuery dataset and table.
+* Pub/Sub Topic and Subscription.
+* IAM bindings for access.
 
 Please define [BigQuery table schema](https://cloud.google.com/bigquery/docs/schemas) (in the logging.hcl file) based on the log sink filter and Pub/Sub messages format. Update the following variables with appropriate values as described.
 * logging_project_id (in commonVariables.hcl): Project ID of the assured workload created for Logging resources deployment.
@@ -161,16 +161,16 @@ Additionally, customize the remaining variables based on the requirements.
 
 ##### loadbalancer-mig.hcl variables
 The loadbalancer-mig.hcl file creates:
-* Instance template 
-* Managed Instance Group (MIG) 
-* HTTPS Load Balancer, SSL certificate 
-* DNS Zone & records
-* Health Checks
-* Cloud Armor
-* Log Sink to Logging project
-* Cloud load balancing backend bucket
-* Firewall for health checks
-* IAM for access
+* Instance template.
+* Managed Instance Group (MIG).
+* HTTPS Load Balancer, SSL certificate.
+* DNS Zone & records.
+* Health Checks.
+* Cloud Armor.
+* Log Sink to Logging project.
+* Cloud load balancing backend bucket.
+* Firewall for health checks.
+* IAM for access.
 
 As mentioned below, update the following variables with appropriate values.
 * ttw_project_id (in commonVariables.hcl):  Project ID of the assured workload created for “Three Tier Workload” resources deployment.
@@ -187,10 +187,10 @@ Additionally, customize the remaining variables based on the requirements.
 
 ##### gke-sql.hcl variables
 The gke-sql.hcl file creates: 
-* Private GKE cluster
-* Private Cloud SQL
-* Log sink to Logging project
-* IAM for access
+* Private GKE cluster.
+* Private Cloud SQL.
+* Log sink to Logging project.
+* IAM for access.
  
 As mentioned below, update the following variables with appropriate values.
 * cloud_sql_backup_export_bucket_name (in variables.hcl): A globally unique bucket name.
@@ -299,5 +299,5 @@ $ terraform apply
 
 * [Google Cloud Platform supports FedRAMP compliance](https://cloud.google.com/security/compliance/fedramp/), and provides specific details on the approach to security and data protection in the [Google security whitepaper](https://cloud.google.com/security/overview/whitepaper/) and in the [Google Infrastructure Security Design Overview.](https://cloud.google.com/security/infrastructure/design/)
 * To learn more about Google Cloud's Shared Responsibility Model, refer to the [Google Infrastructure Security Design Overview.](https://cloud.google.com/security/infrastructure/design/)
-* Refer to the [FedRAMP Shared Security Model](https://cloud.google.com/assured-workloads/docs/concept-fedramp-moderate) and [Google Cloud FedRAMP Implementation Guide](https://cloud.google.com/security/compliance/fedramp-guide) for additional guidance on FedRAMP shared responsibilities for Google Cloud Platform.
+* Refer to the [FedRAMP Shared Security Model](https://cloud.google.com/assured-workloads/docs/concept-fedramp-moderate) and [Google Cloud FedRAMP Implementation Guide.](https://cloud.google.com/security/compliance/fedramp-guide) for additional guidance on FedRAMP shared responsibilities for Google Cloud Platform.
 * For details on Google Cloud services covered by FedRAMP, refer to the [FedRAMP Marketplace](https://cloud.google.com/security/compliance/fedramp) by Google.
