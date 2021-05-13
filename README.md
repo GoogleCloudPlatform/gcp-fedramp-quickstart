@@ -1,8 +1,8 @@
 # Google Cloud FedRAMP aligned "Three Tier Workload"
 
-<img width="835" alt="FedRAMP Aligned Three-Tier Architecture on GCP" src="https://user-images.githubusercontent.com/56096409/116757301-ad3ae600-a9c2-11eb-9608-1ee5c846b9d5.PNG">
+<img width="835" alt="FedRAMP Aligned Three-Tier Architecture on GCP" src="https://user-images.githubusercontent.com/56096409/118192016-5ab5ec80-b3fa-11eb-89e0-39e7803756bc.jpg">
 
-The 3-tier architecture can be used to deploy a web-based application on Google Cloud platform. The entire architecture is deployed as two projects using Cloud [Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite).  
+The 3-tier architecture can be used to deploy a web-based application on Google Cloud platform. The entire architecture is deployed as two projects using [Cloud Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite).  
 
 ## Documentation
 * [Quickstart](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#quickstart)
@@ -13,7 +13,7 @@ The 3-tier architecture can be used to deploy a web-based application on Google 
   * [Update the variables in HCL files](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#update-the-variables-in-hcl-files)
   * [Generate terraform files](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#generate-terraform-files)
   * [Architecure deployment using terraform](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#architecture-deployment-using-terraform)
-* [Architecture diagram](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/Architecture/FedRAMP%20Aligned%20Three-Tier%20Architecture%20on%20GCP.PNG) 
+* [Architecture diagram](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/Architecture/FedRAMP%20Aligned%20three-tier%20architecture%20on%20Google%20Cloud.jpg) 
 * [Use case description and user considerations](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/Architecture/Three-Tier%20Architecture%20Use%20Case%20Description.md) 
 * [HCL files](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#hcl-files)
 * [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173) 
@@ -31,19 +31,19 @@ The 3-tier architecture can be used to deploy a web-based application on Google 
 
 ## Prerequisites
 
-[Data Protection Toolkit (DPT)](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite) can be run locally on a computer or by using Google Cloud Shell. 
+Run the [Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite) locally on a computer or by using Google Cloud Shell. 
 
-Prior to running DPT locally, the following tools must be installed:
+Before you run the toolkit locally, install the following tools:
 
-* [Go (1.14+)](https://golang.org/doc/go1.14) - An open source programming language to build software.
-* [Cloud SDK](https://cloud.google.com/sdk/install) - A set of tools for managing resources and applications hosted on Google Cloud.
-* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - A distributed version control system.
-* [Terraform (0.14.4+)](https://www.terraform.io/downloads.html) - A cloud provisioning tool
-* [Google Workspaces](https://workspace.google.com/) / [Cloud Identity](https://cloud.google.com/identity/docs/overview) - Privileges to modify users and groups in Google Workspaces / Cloud Identity.
-* [GCP Organization](https://cloud.google.com/resource-manager/docs/creating-managing-organization) - A Google Cloud organization with [Billing Account](https://cloud.google.com/billing/docs)
-* Domain purchased from a Domain registrar (example: Google Domains)
+* [Go (1.14+)](https://golang.org/doc/go1.14) - an open source programming language to build software.
+* [Cloud SDK](https://cloud.google.com/sdk/install) - a set of tools for managing resources and applications hosted on Google Cloud.
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - a distributed version control system.
+* [Terraform (0.14.4+)](https://www.terraform.io/downloads.html) - a cloud provisioning tool.
+* [Google Workspaces](https://workspace.google.com/) or [Cloud Identity](https://cloud.google.com/identity/docs/overview) - Privileges to modify users and groups in Google Workspaces or Cloud Identity.
+* [Google Cloud Organization](https://cloud.google.com/resource-manager/docs/creating-managing-organization) - A Google Cloud organization with [Billing Account](https://cloud.google.com/billing/docs)
+* A domain purchased from a Domain registrar (example: Google Domains).
 
-If Google Cloud Shell is used to run DPT, Go (1.16), Git, and Cloud SDK are preinstalled. However, newer version of Terraform must be installed in Google Cloud Shell before deploying the template using the below steps:
+If Google Cloud Shell is used to run the toolkit, Go (1.16), Git, and Cloud SDK are preinstalled. However, newer version of Terraform must be installed in Google Cloud Shell before deploying the template using the below steps:
 
 1. Go to [Terraform Downloads](https://www.terraform.io/downloads.html) and copy the link of 'Linux 64-bit' binary by right clicking on it
 2. Download the Linux 64-bit binary into Google Cloud Shell 
@@ -61,12 +61,12 @@ $ sudo cp terraform /usr/local/bin
 
 
 ### Access Control
-Before a template is deployed, DPT requires creation of three groups in GCP. 
+Before deploying a template, create three groups: 
 * Owner: project-owners@{DOMAIN} - This group is granted the owner's role for the project, which allows members to do anything permitted by organization policies within the project. Additions to the owner’s group should be for a short term and controlled tightly.  Members of this group get owners access to the devops project to make changes to the CICD project or to make changes to the Terraform state. Make sure to include yourself as an owner of this group. Otherwise, you might lose access to the devops project after the ownership is transferred to this group.
-* Admin: org-admins@{DOMAIN} - Members of this group get administrative access to the org or folder. This group can be used in break-glass situations to give humans access to the org or folder to make changes. Include yourself as a member of this group to deploy the DPT templates.
-* Cloud-users: project-cloud-users@{DOMAIN} - Members of this group will get access to the resources deployed by DPT post deployment.
+* Admin: org-admins@{DOMAIN} - Members of this group get administrative access to the org or folder. This group can be used in break-glass situations to give humans access to the org or folder to make changes. Include yourself as a member of this group to deploy the code templates.
+* Cloud-users: project-cloud-users@{DOMAIN} - Members of this group will get access to the resources deployed by the toolkit post deployment.
 
-The user groups running the template (org-admins group) should have the following Cloud IAM roles. 
+The user groups running the template (org-admins group) should have the following IAM roles. 
 * roles/resourcemanager.organizationAdmin on the org for org deployment
 * roles/resourcemanager.folderAdmin on the folder for folder deployment (This role is required if workloads are deployed under a folder instead of organization)
 * roles/resourcemanager.projectCreator on the org or folder
@@ -75,14 +75,14 @@ The user groups running the template (org-admins group) should have the followin
 
 ## Deployment Phases
 
-DPT deploys resources on [Google Assured Workload](https://cloud.google.com/assured-workloads) projects, however, DPT does not create these projects for Assured Workloads. Hence, before deploying DPT, the user must create two FedRAMP moderate assured workloads (one for three tier workload and one for logging project) using console or gcloud. Refer to this [link](https://cloud.google.com/assured-workloads/docs/how-to-create-workload).
+Data Protection Toolkit deploys resources on [Google Assured Workload](https://cloud.google.com/assured-workloads) projects, however, the toolkit does not create these projects for Assured Workloads. Hence, before deploying the toolkit, the user must create two FedRAMP moderate assured workloads (one for three tier workload and one for logging project) using console or gcloud. Refer to this [Create a new workload environment](https://cloud.google.com/assured-workloads/docs/how-to-create-workload) link.
 
-**Note: Create Assured workloads in regions where N2D machine type is supported. Refer to [this link](https://cloud.google.com/compute/docs/regions-zones) to see which regions support N2D machine type.
+**Note: Create Assured workloads in regions where N2D machine type is supported. Refer to [Regions and zones](https://cloud.google.com/compute/docs/regions-zones) to see which regions support N2D machine type.**
 
 
 ### Clone the repository
 
-1. Clone the DPT git repository to a folder (locally or on cloud shell)
+1. Clone the Data Protection Toolkit git repository to a folder (locally or on cloud shell)
 
 ```
 $ git clone https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite
@@ -101,12 +101,12 @@ $ go install ./cmd/tfengine
 $ git clone https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart.git
 ```
 
-4. Once the HCL files are cloned, configure the variable values in commonVariables.hcl and variable.hcl files based on requirements. Refer the ‘Update the variables in HCL files’ section below for details.
+4. After the HCL files are cloned, configure the variable values in commonVariables.hcl and variable.hcl files based on requirements. Refer the ‘Update the variables in HCL files’ section below for details.
 
 
 ### Update the variables in HCL files
 
-This repository contains Hashicorp Configuration Language (HCL) files for deployment of FedRAMP aligned "Three Tier Workload" using [Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite) (DPT). DPT contains a suite of tools that can be used to manage key areas of your Google Cloud organization.
+This repository contains Hashicorp Configuration Language (HCL) files for deployment of FedRAMP aligned "Three Tier Workload" using [Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite). The toolkit contains a suite of tools that can be used to manage key areas of your Google Cloud organization.
 
 #### HCL files
 This repository contains seven HCL files:
@@ -114,12 +114,12 @@ This repository contains seven HCL files:
 * commonVaraibles.hcl: This file is used to centralize common variables, which were used repetitively in variables.hcl.
 * devops.hcl: This file deploys devops project and terraform state storage bucket.
 * network.hcl: This file is used to deploy two networks across two assured workload projects.
-* loadbalancer-mig.hcl: This file is used to deploy front end resources such as Load balancer, Managed Instance group etc. in the Three Tier Workload project.
+* loadbalancer-mig.hcl: This file is used to deploy front end resources such as Load balancer, Managed Instance group and so on in the Three Tier Workload project.
 * gke-sql.hcl: This file is used to deploy the GKE cluster and SQL instance in the Three Tier Workload project.
 * logging.hcl: This file is used to deploy Logging project resources.
 
 #### Execution
-The DPT (tfengine) execution starts with the commonVariables.hcl file. The commonVariables.hcl file calls the variable.hcl file, which inturn calls five HCL files: devops.hcl, network.hcl, logging.hcl, loadbalancer-mig.hcl, gke-sql.hcl.
+The toolkit (tfengine) execution starts with the commonVariables.hcl file. The commonVariables.hcl file calls the variable.hcl file, which inturn calls five HCL files: devops.hcl, network.hcl, logging.hcl, loadbalancer-mig.hcl, gke-sql.hcl.
 
 (commonVariables.hcl →  variable.hcl file → devops.hcl, network.hcl, logging.hcl, loadbalancer-mig.hcl, gke-sql.hcl)
  
@@ -127,14 +127,14 @@ Note: Variable values used in both commonVariables and variable files are for re
 
 #### Key Considerations
 In order to edit and customize the deployment to align to your requirements, please consider the following.
-**Note: All the variables stated in the below sections reside in [commonVariables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/commonVariables.hcl) and [variables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/variables.hcl), and must be updated in these two files only.** 
+**Note: All the variables stated in the below sections reside in [commonVariables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/main/Infrastructure/commonVariables.hcl) and [variables.hcl](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/main/Infrastructure/variables.hcl), and must be updated in these two files only.** 
 
 ##### devops.hcl variables
 The devops.hcl file will:
 * Deploy a devops project, and
 * Create a terraform state storage bucket
  
-Please ensure that values for devops project ID "devops_project_id" (in variables.hcl) and bucket name "terraform_state_storage_bucket"  (in commonVariables.hcl) are globally unique.
+Ensure that values for devops project ID "devops_project_id" (in variables.hcl) and bucket name "terraform_state_storage_bucket"  (in commonVariables.hcl) are globally unique.
 
 ##### network.hcl variables
 The network.hcl will: 
@@ -146,18 +146,18 @@ The network.hcl will:
 ##### logging.hcl variables
 The logging.hcl file creates: 
 * Dataflow job with private worker(s)
-* Bigquery dataset and table
+* BigQuery dataset and table
 * Pub/Sub Topic and Subscription
 * IAM bindings for access
 
-Please define [bigquery table schema](https://cloud.google.com/bigquery/docs/schemas) (in the logging.hcl file) based on the log sink filter and Pub/Sub messages format. Update the following variables with appropriate values as described.
+Please define [BigQuery table schema](https://cloud.google.com/bigquery/docs/schemas) (in the logging.hcl file) based on the log sink filter and Pub/Sub messages format. Update the following variables with appropriate values as described.
 * logging_project_id (in commonVariables.hcl): Project ID of the assured workload created for Logging resources deployment.
 * logging_project_region (in commonVariables.hcl): Region selected while creating assured workload.
 * dataflow_temp_storage_bucket_name (in variables.hcl): A globally unique bucket name.
 
 Additionally, customize the remaining variables based on the requirements.
  
-**Note:** Assured workloads for “Logging” and “Three Tier Workload” must be created before running the DPT. Refer to section 3.5 in the [Solution Guide.](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit)
+**Note:** Assured workloads for “Logging” and “Three Tier Workload” must be created before running the toolkit. Refer to section 3.5 in the [Solution Guide.](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit)
 
 ##### loadbalancer-mig.hcl variables
 The loadbalancer-mig.hcl file creates:
@@ -168,7 +168,7 @@ The loadbalancer-mig.hcl file creates:
 * Health Checks
 * Cloud Armor
 * Log Sink to Logging project
-* Load Balancer backend bucket
+* Cloud load balancing backend bucket
 * Firewall for health checks
 * IAM for access
 
@@ -194,7 +194,7 @@ The gke-sql.hcl file creates:
  
 As mentioned below, update the following variables with appropriate values.
 * cloud_sql_backup_export_bucket_name (in variables.hcl): A globally unique bucket name.
-* ttw_project_log_sink_filter (in variables.hcl): Log filter to filter the streaming logs to pubsub. 
+* ttw_project_log_sink_filter (in variables.hcl): Log filter to filter the streaming logs to Pub/Sub. 
  
 Additionally, customize the remaining variables based on the requirements.
 
@@ -232,7 +232,7 @@ $ terraform init
 $ terraform apply
 ```
 
-* Once the project and state bucket are deployed, go to devops.hcl DPT file section shown below, uncomment and set the enable_gcs_backend to true.
+* After the project and state bucket are deployed, go to devops.hcl file section shown below, uncomment and set the enable_gcs_backend to true.
 
 ```
 template "devops" {
@@ -257,14 +257,14 @@ $ cd /{output-path}/devops
 $ terraform init -force-copy
 ```
 
-* Once states are transferred to the state bucket, deploy network resources in logging project (assured workload). 
+* After the states are transferred to the state bucket, deploy network resources in logging project (assured workload). 
 
 ```
 $ cd /{output-path}/logging/network
 $ terraform init
 $ terraform apply
 ```
-* Once logging network is deployed, run the below commands to deploy remaining resources in the logging project (assured workload) such as dataflow, pubsub, bigquery etc.
+* After the logging network is deployed, run the below commands to deploy remaining resources in the logging project (Assured Workload) such as Dataflow, Pub/Sub, BigQuery.
 
 ```
 $ cd /{output-path}/logging/workload
@@ -279,7 +279,7 @@ $ terraform init
 $ terraform apply
 ```
 
-* Deploy the resources in threetierworkload/loadbalancer-mig folder to create resources such as , MIG, , Load Balancer, Cloud Armor, Google Managed SSL, Managed DNS etc.
+* Deploy the resources in threetierworkload/loadbalancer-mig folder to create resources such as , MIG, Cloud Load Balancing, Cloud Armor, Google Managed SSL, Managed DNS and so on.
 
 ```
 $ cd /{output-path}/threetierworkload/loadbalancer-mig
@@ -287,7 +287,7 @@ $ terraform init
 $ terraform apply
 ```
 
-* Deploy the additional resources in threetierworkload/gke-sql folder to create resources such GKE and SQL etc.
+* Deploy the additional resources in threetierworkload/gke-sql folder to create resources such GKE and SQL.
 
 ```
 $ cd /{output-path}/threetierworkload/gke-sql
