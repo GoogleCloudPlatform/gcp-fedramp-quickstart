@@ -16,7 +16,6 @@ The 3-tier architecture can be used to deploy a web-based application on Google 
 * [Architecture diagram](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/Architecture/FedRAMP%20Aligned%20three-tier%20architecture%20on%20Google%20Cloud.jpg) 
 * [Use case description and user considerations](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/Architecture/Three-Tier%20Architecture%20Use%20Case%20Description.md) 
 * [HCL files](https://github.com/zealsomani/gcp-fedramp-quickstart/blob/main/README.md#hcl-files)
-* [Solution Guide](https://docs.google.com/document/d/1oEm2UMU82wmGvS_OGi-7iYw_Nlzt75ePIcSQ1KjGOGc/edit?ts=608c7173) 
 * [Useful FedRAMP links](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#useful-fedramp-linkss)
 
 ## Quickstart
