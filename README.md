@@ -2,7 +2,7 @@
 
 <img width="835" alt="FedRAMP Aligned Three-Tier Architecture on GCP" src="https://user-images.githubusercontent.com/56096409/118192016-5ab5ec80-b3fa-11eb-89e0-39e7803756bc.jpg">
 
-The 3-tier architecture can be used to deploy a web-based application on Google Cloud. The entire architecture is deployed as two projects using [Cloud Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite).  
+The three-tier architecture can be used to deploy a web-based application on Google Cloud. The entire architecture is deployed as two projects using [Cloud Data Protection Toolkit](https://github.com/GoogleCloudPlatform/healthcare-data-protection-suite).  
 
 ## Documentation
 * [Quickstart](https://github.com/GoogleCloudPlatform/gcp-fedramp-quickstart/blob/master/README.md#quickstart)
