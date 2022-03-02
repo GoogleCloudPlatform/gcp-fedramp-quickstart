@@ -190,7 +190,7 @@ template "three-tier-workload" {
 
             }
 #Code Block 3.2.6.b (2)            
-            # Uncomment to whitelist additional IPs.
+            # Uncomment the following block to allow additional IPs.
            #{
                 #cidr_block = ""
                 #display_name = ""
