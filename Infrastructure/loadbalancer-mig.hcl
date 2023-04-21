@@ -370,7 +370,7 @@ template "three-tier-workload" {
                 }
                 description = "Deny access to XSS attempts"
             }
-            # Custom rule to allow specific IPs(whitelisting)
+            # Custom rule to allow specific IPs(allowlist)
             rule {
                 action   = "allow"
                 priority = "500"
